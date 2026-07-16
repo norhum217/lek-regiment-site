@@ -16,18 +16,18 @@
 
 const SHEET_URLS = {
   // Company roster tabs (K/D/KPE/activity per platoon)
-  musketyri:   "PASTE_MUSKETYRI_CSV_LINK_HERE",
-  strelci:     "PASTE_STRELCI_CSV_LINK_HERE",
-  legion:      "PASTE_LEGIONARI_CSV_LINK_HERE",
+  musketyri:   "https://docs.google.com/spreadsheets/d/e/2PACX-1vQKLjI04jG4l6WgY2VJ03LWtBzaOvyYmNZVw9VbHR8TYK8HHUkpsDMw56zRBt1UQGMS0zmzFhh6wk13/pub?gid=1736233066&single=true&output=csv",
+  strelci:     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQKLjI04jG4l6WgY2VJ03LWtBzaOvyYmNZVw9VbHR8TYK8HHUkpsDMw56zRBt1UQGMS0zmzFhh6wk13/pub?gid=1921076111&single=true&output=csv",
+  legion:      "https://docs.google.com/spreadsheets/d/e/2PACX-1vQKLjI04jG4l6WgY2VJ03LWtBzaOvyYmNZVw9VbHR8TYK8HHUkpsDMw56zRBt1UQGMS0zmzFhh6wk13/pub?gid=960466620&single=true&output=csv",
 
   // Regiment & company command roster (CO/XO of each company)
-  highCommand: "PASTE_CO_XO_CSV_LINK_HERE",
+  highCommand: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQKLjI04jG4l6WgY2VJ03LWtBzaOvyYmNZVw9VbHR8TYK8HHUkpsDMw56zRBt1UQGMS0zmzFhh6wk13/pub?gid=1443379977&single=true&output=csv",
 
   // Recruitment tracker (recruiters, staff RC points, sessions hosted)
-  recruitment: "PASTE_RECRUITMENT_TRACKER_CSV_LINK_HERE",
+  recruitment: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQKLjI04jG4l6WgY2VJ03LWtBzaOvyYmNZVw9VbHR8TYK8HHUkpsDMw56zRBt1UQGMS0zmzFhh6wk13/pub?gid=502799338&single=true&output=csv",
 
   // Depot / new recruit intake tracker
-  depot:       "PASTE_DEPOT_CSV_LINK_HERE",
+  depot:       "https://docs.google.com/spreadsheets/d/e/2PACX-1vQKLjI04jG4l6WgY2VJ03LWtBzaOvyYmNZVw9VbHR8TYK8HHUkpsDMw56zRBt1UQGMS0zmzFhh6wk13/pub?gid=1462752426&single=true&output=csv",
 };
 
 /* Battle results are NOT auto-fetched yet — for now you still add battles
