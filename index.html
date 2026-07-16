@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legion Erzherzog Karl — Campaign Register</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --parchment:#EAE0C8;
+  --parchment-dark:#D8C8A2;
+  --ink:#221C13;
+  --ink-soft:#4a4030;
+  --gold:#B08A2E;
+  --gold-bright:#C9A227;
+  --oxblood:#6E2A26;
+  --field-green:#4B5D3A;
+  --rule:#3a3221;
+  --accent:#B08A2E;
+  --accent2:#B08A2E;
+  --accent-soft:rgba(176,138,46,0.10);
+}
+.theme-musketeers{ --accent:#8B5A2B; --accent2:#8B5A2B; --accent-soft:rgba(139,90,43,0.10); }
+.theme-strelci{ --accent:#B9932A; --accent2:#B9932A; --accent-soft:rgba(185,147,42,0.12); }
+.theme-legion{ --accent:#5A4E74; --accent2:#7A2426; --accent-soft:rgba(90,78,116,0.10); }
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:
+    radial-gradient(ellipse at top left, rgba(255,255,255,0.08), transparent 60%),
+    var(--parchment);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px),
+    var(--parchment);
+  color:var(--ink);
+  font-family:'Source Serif 4', Georgia, serif;
+  min-height:100vh;
+  padding:0 0 60px 0;
+}
+
+.masthead{
+  border-bottom:4px double var(--rule);
+  padding:34px 24px 22px;
+  text-align:center;
+  position:relative;
+  background:linear-gradient(180deg, rgba(255,255,255,0.15), transparent);
+}
+.seal{
+  width:64px;height:64px;
+  margin:0 auto 14px;
+  border:2px solid var(--gold);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  background:radial-gradient(circle at 35% 30%, rgba(201,162,39,0.25), transparent 70%);
+}
+.seal::before{
+  content:'';
+  position:absolute;
+  inset:6px;
+  border:1px solid var(--gold);
+  border-radius:50%;
+}
+.seal-mark{
+  font-family:'Cinzel',serif;
+  font-weight:900;
+  font-size:20px;
+  color:var(--gold);
+  letter-spacing:1px;
+}
+.masthead h1{
+  font-family:'Cinzel',serif;
+  font-weight:900;
+  font-size:clamp(24px,4vw,40px);
+  letter-spacing:2px;
+  margin:0 0 8px;
+  text-transform:uppercase;
+  color:var(--ink);
+}
+.masthead .subtitle{
+  font-family:'Cinzel',serif;
+  font-weight:500;
+  font-size:14px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:var(--oxblood);
+}
+.masthead .dateline{
+  margin-top:10px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  letter-spacing:1px;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+}
+
+.nav-wrap{
+  border-bottom:2px solid var(--rule);
+  background:rgba(255,255,255,0.12);
+  position:sticky;
+  top:0;
+  z-index:20;
+  backdrop-filter:blur(2px);
+}
+.nav{
+  max-width:1200px;
+  margin:0 auto;
+  display:flex;
+  flex-wrap:nowrap;
+  justify-content:center;
+  align-items:center;
+  gap:clamp(2px,0.6vw,10px);
+  padding:0 10px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.nav::-webkit-scrollbar{ display:none; }
+.nav button{
+  font-family:'Cinzel',serif;
+  font-weight:600;
+  font-size:clamp(8.5px,1.15vw,12px);
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  background:none;
+  border:none;
+  border-bottom:2px solid transparent;
+  padding:clamp(11px,1.7vw,16px) clamp(4px,1vw,10px);
+  color:var(--ink-soft);
+  cursor:pointer;
+  white-space:nowrap;
+  transition:color .15s, border-color .15s;
+  flex:0 0 auto;
+}
+.nav button:hover{ color:var(--ink); background:rgba(0,0,0,0.03); }
+.nav button.active{
+  color:var(--ink);
+  font-weight:700;
+  background:rgba(0,0,0,0.045);
+  border-bottom-color:var(--tab-accent, var(--gold-bright));
+}
+main{max-width:1080px;margin:0 auto;padding:32px 20px 0;}
+.panel{display:none;}
+.panel.active{display:block; animation:fadeIn .25s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px);} to{opacity:1;transform:translateY(0);}}
+
+.panel-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  border-bottom:2px solid var(--rule);
+  padding-bottom:10px;
+  margin-bottom:22px;
+}
+.panel-header .titles{display:flex; align-items:center; gap:14px;}
+.crest-slot{
+  width:42px;height:42px;
+  border:1.5px solid var(--accent);
+  border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;
+  font-weight:700;
+  font-size:15px;
+  color:var(--accent);
+  background:var(--accent-soft);
+  flex-shrink:0;
+}
+.panel-header h2{
+  font-family:'Cinzel',serif;
+  font-weight:700;
+  font-size:22px;
+  letter-spacing:1.5px;
+  margin:0;
+  text-transform:uppercase;
+}
+.panel-header .gloss{
+  display:block;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--accent2);
+  margin-top:2px;
+}
+.panel-header .meta{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:var(--ink-soft);
+  letter-spacing:.5px;
+}
+
+.stat-strip{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:1px;
+  background:var(--rule);
+  border:1px solid var(--rule);
+  margin-bottom:28px;
+}
+.stat-cell{
+  background:var(--parchment);
+  padding:16px 14px;
+  text-align:center;
+}
+.stat-cell .num{
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:600;
+  font-size:26px;
+  color:var(--ink);
+  display:block;
+}
+.stat-cell.kills .num{color:var(--field-green);}
+.stat-cell.deaths .num{color:var(--oxblood);}
+.stat-cell.accent .num{color:var(--accent);}
+.stat-cell .lbl{
+  font-family:'Cinzel',serif;
+  font-size:10px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  display:block;
+  margin-top:4px;
+}
+
+.ledger-wrap{
+  border-top:3px double var(--rule);
+  border-bottom:3px double var(--rule);
+  margin-bottom:32px;
+}
+table.ledger{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+}
+table.ledger thead th{
+  font-family:'Cinzel',serif;
+  font-weight:600;
+  font-size:11px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  text-align:left;
+  padding:10px 12px;
+  border-bottom:1px solid var(--rule);
+  color:var(--ink-soft);
+  cursor:pointer;
+  user-select:none;
+  white-space:nowrap;
+}
+table.ledger thead th:hover{color:var(--ink);}
+table.ledger thead th.sorted{color:var(--accent);}
+table.ledger thead th.sorted::after{ content:' ▾'; }
+table.ledger thead th.num, table.ledger td.num{text-align:right;}
+table.ledger tbody tr{border-bottom:1px solid rgba(58,50,33,0.18);}
+table.ledger tbody tr:hover{background:var(--accent-soft);}
+table.ledger td{padding:8px 12px; font-family:'IBM Plex Mono',monospace; font-size:13px;}
+table.ledger td.name-cell{font-family:'Source Serif 4',serif; font-size:14px; font-weight:600;}
+.rank-badge{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:var(--ink-soft);
+  width:24px;
+  display:inline-block;
+}
+.pos-tag{
+  display:inline-block;
+  font-family:'Cinzel',serif;
+  font-size:9px;
+  letter-spacing:.5px;
+  border:1px solid var(--rule);
+  padding:1px 5px;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+}
+.staff-tag{ border-color:var(--accent); color:var(--accent); }
+.kdr-good{color:var(--field-green); font-weight:600;}
+.kdr-bad{color:var(--oxblood);}
+
+.platoon-block{margin-bottom:36px;}
+.platoon-title{
+  font-family:'Cinzel',serif;
+  font-weight:600;
+  font-size:15px;
+  letter-spacing:.5px;
+  margin:0 0 10px;
+  padding:6px 0 6px 12px;
+  border-left:4px solid var(--accent);
+  background:var(--accent-soft);
+}
+.theme-legion .platoon-title{
+  border-left:4px solid;
+  border-image:linear-gradient(180deg, var(--accent), var(--accent2)) 1;
+}
+
+.placeholder{
+  border:1px dashed var(--rule);
+  padding:60px 30px;
+  text-align:center;
+  color:var(--ink-soft);
+}
+.placeholder .seal-mark-lg{
+  font-family:'Cinzel',serif;
+  font-size:13px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--accent);
+  display:block;
+  margin-bottom:12px;
+}
+.placeholder p{max-width:440px;margin:8px auto 0;font-size:14px;line-height:1.6;}
+
+/* ===== BATTLE RESULTS ===== */
+.battle-card{
+  border:1px solid var(--rule);
+  background:rgba(255,255,255,0.10);
+  margin-bottom:32px;
+}
+.battle-head{
+  padding:22px 22px 18px;
+  border-bottom:none;
+  text-align:center;
+  background:linear-gradient(180deg, rgba(255,255,255,0.14), transparent);
+}
+.battle-head .battle-name{
+  font-family:'Cinzel',serif;
+  font-weight:600;
+  font-size:13px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  margin-bottom:16px;
+}
+.corps-flags-row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+}
+.flag-box{
+  flex-shrink:0;
+  width:44px;
+  height:29px;
+  border:1px solid var(--rule);
+  box-shadow:1px 1px 0 rgba(0,0,0,0.15);
+  overflow:hidden;
+}
+.flag-box svg{ display:block; width:100%; height:100%; }
+.corps-big{
+  font-family:'Cinzel',serif;
+  font-weight:800;
+  font-size:clamp(18px,3.6vw,28px);
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  color:var(--ink);
+  line-height:1.2;
+}
+.corps-big .vs-mini{
+  display:inline-block;
+  font-size:0.5em;
+  color:var(--ink-soft);
+  letter-spacing:2px;
+  margin:0 10px;
+  vertical-align:middle;
+}
+.battle-head .battle-date{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:var(--ink-soft);
+  margin-top:10px;
+  letter-spacing:.5px;
+}
+.result-summary{
+  text-align:center;
+  padding:14px 20px 22px;
+  border-bottom:3px double var(--rule);
+}
+.result-summary .outcome-text{
+  font-family:'Cinzel',serif;
+  font-weight:900;
+  font-size:clamp(22px,4vw,32px);
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+.result-summary .outcome-text.win{color:var(--field-green);}
+.result-summary .outcome-text.loss{color:var(--oxblood);}
+.result-summary .diff-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:600;
+  font-size:15px;
+  display:block;
+  margin-top:4px;
+  color:var(--ink-soft);
+}
+.result-summary .diff-num.diff-pos{color:var(--field-green);}
+.result-summary .diff-num.diff-neg{color:var(--oxblood);}
+
+.matchups-wrap{padding:6px 0;}
+.matchup-row{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:10px;
+  align-items:center;
+  padding:16px 16px;
+  border-bottom:1px solid rgba(58,50,33,0.18);
+}
+.matchup-row:last-child{border-bottom:none;}
+.m-our, .m-their{
+  display:flex;
+  align-items:baseline;
+  gap:16px;
+}
+.m-our{ justify-content:flex-end; }
+.m-their{ justify-content:flex-start; }
+.m-nameblock{ text-align:right; }
+.m-their .m-nameblock{ text-align:left; }
+.m-nameblock .m-name{
+  font-family:'Cinzel',serif;
+  font-weight:700;
+  font-size:17px;
+  letter-spacing:.3px;
+  text-transform:uppercase;
+  color:var(--ink);
+}
+.m-nameblock .m-men{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;
+  color:var(--ink-soft);
+  letter-spacing:.5px;
+  margin-top:2px;
+}
+.m-starcluster{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+  width:38px;
+  flex-shrink:0;
+}
+.m-starcluster svg{ display:block; color:var(--gold-bright); }
+.m-starcluster .star-count{
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:700;
+  font-size:14px;
+  color:var(--ink-soft);
+  line-height:1;
+}
+.m-points{
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:800;
+  font-size:32px;
+  line-height:1;
+  min-width:52px;
+}
+.m-our .m-points{ text-align:left; }
+.m-their .m-points{ text-align:right; }
+.m-points.diff-pos{color:var(--field-green);}
+.m-points.diff-neg{color:var(--oxblood);}
+.m-points.diff-tie{color:var(--ink-soft);}
+.m-divider{
+  font-family:'Cinzel',serif;
+  font-size:10px;
+  letter-spacing:2px;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+}
+.line-chip{
+  display:inline-block;
+  width:9px;height:9px;
+  border-radius:2px;
+  margin-right:7px;
+  vertical-align:middle;
+}
+
+.name-link{
+  cursor:pointer;
+  border-bottom:1px dotted var(--ink-soft);
+  transition:color .15s;
+}
+.name-link:hover{ color:var(--accent, var(--gold)); border-bottom-color:var(--accent, var(--gold)); }
+
+/* ===== PROFILE ===== */
+.profile-empty{
+  border:1px dashed var(--rule);
+  padding:50px 30px;
+  text-align:center;
+  color:var(--ink-soft);
+}
+.profile-empty input{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:14px;
+  padding:8px 12px;
+  border:1px solid var(--rule);
+  background:var(--parchment);
+  color:var(--ink);
+  width:240px;
+  max-width:80%;
+  margin-top:14px;
+}
+.profile-card{
+  border:1px solid var(--rule);
+  background:rgba(255,255,255,0.10);
+}
+.profile-head{
+  padding:26px 22px 22px;
+  text-align:center;
+  border-bottom:2px double var(--rule);
+  background:linear-gradient(180deg, rgba(255,255,255,0.14), transparent);
+  position:relative;
+}
+.back-btn{
+  position:absolute;
+  left:14px;
+  top:14px;
+  font-family:'Cinzel',serif;
+  font-weight:600;
+  font-size:11px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  background:none;
+  border:1px solid var(--rule);
+  color:var(--ink-soft);
+  padding:6px 10px;
+  cursor:pointer;
+}
+.back-btn:hover{ color:var(--ink); border-color:var(--ink); }
+.profile-head .p-name{
+  font-family:'Cinzel',serif;
+  font-weight:900;
+  font-size:clamp(22px,4vw,32px);
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+.profile-head .p-rank{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  letter-spacing:1px;
+  color:var(--accent2);
+  margin-top:6px;
+  text-transform:uppercase;
+}
+.profile-head .p-unit{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:var(--ink-soft);
+  margin-top:4px;
+}
+.profile-stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+  gap:1px;
+  background:var(--rule);
+  border-bottom:1px solid var(--rule);
+}
+.profile-stats .stat-cell{padding:18px 10px;}
+.profile-stats .rank-sub{
+  display:block;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9.5px;
+  letter-spacing:.5px;
+  color:var(--accent);
+  margin-top:4px;
+  opacity:.85;
+}
+.promotion-block{padding:22px;}
+.promotion-block h4{
+  font-family:'Cinzel',serif;
+  font-size:13px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  margin:0 0 14px;
+  color:var(--ink-soft);
+  border-bottom:1px solid var(--rule);
+  padding-bottom:8px;
+}
+.promo-status{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 16px;
+  border:1px solid var(--rule);
+  margin-bottom:12px;
+}
+.promo-status.due{ border-color:var(--field-green); background:rgba(75,93,58,0.08); }
+.promo-status.na{ border-color:var(--rule); background:rgba(0,0,0,0.03); }
+.promo-badge{
+  font-family:'Cinzel',serif;
+  font-weight:700;
+  font-size:11px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  padding:5px 10px;
+  border:1px solid var(--ink-soft);
+  color:var(--ink-soft);
+  white-space:nowrap;
+}
+.promo-status.due .promo-badge{ border-color:var(--field-green); color:var(--field-green); }
+.promo-text{font-family:'Source Serif 4',serif; font-size:14px; line-height:1.5;}
+.promo-text b{font-weight:700;}
+.progress-bar{
+  height:8px;
+  background:rgba(0,0,0,0.08);
+  border:1px solid var(--rule);
+  margin-top:6px;
+  overflow:hidden;
+}
+.progress-bar-fill{ height:100%; background:var(--accent); }
+.progress-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  color:var(--ink-soft);
+  margin-top:6px;
+}
+
+/* ===== HIGH COMMAND ===== */
+.command-group{margin-bottom:32px;}
+.command-group-title{
+  font-family:'Cinzel',serif;
+  font-weight:700;
+  font-size:14px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin:0 0 10px;
+  padding:6px 0 6px 12px;
+  border-left:4px solid var(--gold-bright);
+  background:rgba(176,138,46,0.06);
+}
+.command-group.tinted .command-group-title{ border-left-color:var(--accent); background:var(--accent-soft); }
+
+/* ===== RECOMMENDATIONS ===== */
+.rec-section{margin-bottom:38px;}
+.rec-section-title{
+  font-family:'Cinzel',serif;
+  font-weight:700;
+  font-size:16px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin:0 0 4px;
+}
+.rec-section-desc{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:var(--ink-soft);
+  margin-bottom:14px;
+}
+.rec-cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px;}
+.rec-card{
+  border:1px solid var(--rule);
+  background:rgba(255,255,255,0.10);
+  padding:14px 16px;
+}
+.rec-card .rc-name{
+  font-family:'Source Serif 4',serif;
+  font-weight:700;
+  font-size:15px;
+}
+.rec-card .rc-meta{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:var(--ink-soft);
+  margin-top:4px;
+}
+.rec-card .rc-highlight{
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:700;
+  font-size:20px;
+  color:var(--accent, var(--gold-bright));
+  margin-top:8px;
+}
+.rec-card .rc-tag{
+  display:inline-block;
+  font-family:'Cinzel',serif;
+  font-size:9px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  border:1px solid var(--rule);
+  padding:2px 6px;
+  color:var(--ink-soft);
+  margin-top:8px;
+}
+.rec-empty{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  color:var(--ink-soft);
+  padding:16px;
+  border:1px dashed var(--rule);
+  text-align:center;
+}
+.sample-tag{
+  display:inline-block;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  border:1px dashed var(--rule);
+  padding:2px 7px;
+  margin-bottom:16px;
+}
+
+footer{
+  max-width:1080px;
+  margin:40px auto 0;
+  padding:16px 20px 0;
+  border-top:1px solid var(--rule);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;
+  letter-spacing:1px;
+  color:var(--ink-soft);
+  text-align:center;
+  text-transform:uppercase;
+}
+
+@media (max-width:640px){
+  table.ledger{font-size:12px;}
+  table.ledger td, table.ledger thead th{padding:7px 8px;}
+}
+</style>
+<style>
+#loading-screen{
+  position:fixed; inset:0; background:var(--parchment); z-index:999;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+}
+#loading-screen .seal{ margin-bottom:0; }
+#loading-screen .loading-text{
+  font-family:'Cinzel',serif; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--ink-soft);
+}
+#load-error{
+  display:none; position:fixed; top:0; left:0; right:0; z-index:1000;
+  background:var(--oxblood); color:#fff; text-align:center; padding:10px;
+  font-family:'IBM Plex Mono',monospace; font-size:12px;
+}
+</style>
+</head>
+<body>
+<div id="load-error">Couldn't load live data from the sheets — check config.js and your published CSV links. Showing an empty state.</div>
+<div id="loading-screen">
+  <div class="seal"><span class="seal-mark">LEK</span></div>
+  <div class="loading-text">Loading the muster roll…</div>
+</div>
+
+
+<div class="masthead">
+  <div class="seal"><span class="seal-mark">LEK</span></div>
+  <h1>Legion Erzherzog Karl</h1>
+  <div class="subtitle">Bohemian Legion — Campaign Register</div>
+  <div class="dateline" id="dateline"></div>
+</div>
+
+<div class="nav-wrap">
+  <nav class="nav" id="nav"></nav>
+</div>
+
+<main id="main"></main>
+
+<footer>Internal regiment register · Napoleonic Wars · data updated manually</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="config.js"></script>
+<script src="js/parsers.js"></script>
+<script src="js/data-loader.js"></script>
+<script>
+/* ============ RAW DATA ============ */
+/* All three companies, unfiltered — filtering happens client-side per company rule */
+let COMPANIES; // populated at runtime by loadAllData()
+
+
+const THEME_BY_ID = {
+  musketyri:'theme-musketeers',
+  strelci:'theme-strelci',
+  legion:'theme-legion'
+};
+
+/* ============ FILTER RULE ============
+   Musketeers (younger company, roster turns over fast): show a member only if
+   they logged activity this week (any day TRUE), OR they hold a command/staff
+   role (PCO, PXO, NCO, CCO, CXO) — command roles always stay listed.
+   Strelci & Legionáři (veteran companies, roster barely changes): show everyone. */
+function visibleMembers(members, company){
+  if(company.filter === 'all') return members;
+  return members.filter(m => m.active_this_week || m.is_staff);
+}
+
+/* ============ UTILITIES ============ */
+function flattenVisible(){
+  const rows = [];
+  COMPANIES.forEach(c=>{
+    c.platoons.forEach(p=>{
+      visibleMembers(p.members, c).forEach(m=>{
+        rows.push({...m, company:c.label, platoon:p.name});
+      });
+    });
+  });
+  return rows;
+}
+function fmtPct(v){return v + '%';}
+function kdrClass(kdr){
+  if(kdr > 1) return 'kdr-good';
+  if(kdr > 0 && kdr <= 0.5) return 'kdr-bad';
+  return '';
+}
+
+/* ============ PROMOTION LADDER ============
+   Trooper progression track, based on battles attended (events).
+   Honorary ranks are gated by company tier (veterancy):
+   tier 0 = Musketeers, tier 1 = Strelci+, tier 2 = Legionáři only.
+   Appointed ranks (Korporal, Vize-Feldwebel, Feldwebel, Fähnrich and above)
+   sit outside this ladder — they're earned by appointment, not battle count. */
+const COMPANY_TIER = { musketyri:0, strelci:1, legion:2 };
+const RANK_LADDER = [
+  {name:'Landwehr', threshold:0, tier:0},
+  {name:'Gemeiner', threshold:1, tier:0},
+  {name:'Gefreiter', threshold:8, tier:0},
+  {name:'Fourierschütz', threshold:19, tier:0},
+  {name:'Vize-Korporal', threshold:38, tier:0},
+  {name:'Honorary Korporal', threshold:62, tier:1},
+  {name:'Honorary Vize-Feldwebel', threshold:105, tier:2},
+];
+
+function ladderIndex(rankName){
+  if(!rankName) return -1;
+  return RANK_LADDER.findIndex(r => r.name.toLowerCase() === rankName.trim().toLowerCase());
+}
+function eligibleLadderIndex(events, tier){
+  let idx = 0;
+  RANK_LADDER.forEach((r,i)=>{ if(events >= r.threshold && tier >= r.tier) idx = i; });
+  return idx;
+}
+function promotionStatus(member, companyId){
+  const tier = COMPANY_TIER[companyId] ?? 0;
+  const curIdx = ladderIndex(member.rank);
+  if(curIdx === -1){
+    return {onLadder:false};
+  }
+  const eligIdx = eligibleLadderIndex(member.events, tier);
+  const dueForPromotion = eligIdx > curIdx;
+  const nextIdx = curIdx + 1;
+  const nextRank = nextIdx < RANK_LADDER.length ? RANK_LADDER[nextIdx] : null;
+  const nextAvailable = nextRank && tier >= nextRank.tier;
+  return {
+    onLadder:true,
+    dueForPromotion,
+    recommendedRank: RANK_LADDER[eligIdx].name,
+    nextRank: nextRank ? nextRank.name : null,
+    nextThreshold: nextRank ? nextRank.threshold : null,
+    nextAvailable,
+    battlesToNext: nextRank ? Math.max(0, nextRank.threshold - member.events) : null,
+  };
+}
+
+/* ============ HIGH COMMAND DATA ============ */
+let HIGH_COMMAND; // populated at runtime by loadAllData()
+
+const HC_SECTION_META = {
+  "Regiment Staff":     {companyId:'regiment', label:'REGIMENT STAFF',  gloss:'Legion Command',   theme:''},
+  "Musketeers Command": {companyId:'musketyri', label:'MUŠKETÝŘI',      gloss:'Company Command',  theme:'theme-musketeers'},
+  "Strelci Command":    {companyId:'strelci',    label:'STŘELCI',       gloss:'Company Command',  theme:'theme-strelci'},
+  "Legionáři Command":  {companyId:'legion',     label:'LEGIONÁŘI',     gloss:'Company Command',  theme:'theme-legion'},
+  "Landwehr Command":   {companyId:'landwehr',   label:'LANDWEHR',      gloss:'Reserve Command',  theme:''},
+};
+
+let MEMBER_INDEX;
+function buildMemberIndex(){
+  MEMBER_INDEX = new Map();
+COMPANIES.forEach(c=>{
+  c.platoons.forEach(p=>{
+    p.members.forEach(m=>{
+      MEMBER_INDEX.set(m.name, {member:m, company:c, platoon:p.name});
+    });
+  });
+});
+/* Register high command personnel too, linked to a synthetic/company profile context */
+Object.entries(HIGH_COMMAND).forEach(([section, members])=>{
+  const meta = HC_SECTION_META[section] || {companyId:'regiment', label:'REGIMENT STAFF', gloss:'Legion Command', theme:''};
+  const synthCompany = { id: meta.companyId, label: meta.label, gloss: meta.gloss, full_name: 'Legion Erzherzog Karl', city:'', filter:'all' };
+  members.forEach(m=>{
+    if(!MEMBER_INDEX.has(m.name)){
+      MEMBER_INDEX.set(m.name, {member:{...m, is_staff:true, days:[false,false,false,false,false,false], active_this_week:false}, company:synthCompany, platoon:section});
+    }
+  });
+});
+}
+/* ============ RECRUITMENT DATA ============ */
+let RECRUITMENT; // populated at runtime by loadAllData()
+
+const COMPANY_FULLNAME_TO_ID = {
+  "Mušketýři z Plzně": 'musketyri',
+  "Střelci z Žatce": 'strelci',
+  "Legionáři z Prahy": 'legion',
+};
+
+/* RC (recruitment) point thresholds — a separate promotion track from the
+   battle-attendance ladder, earned through recruiting activity instead. */
+const RC_RANK_LADDER = [
+  {name:'Gemeiner', threshold:0},
+  {name:'Gefreiter', threshold:5},
+  {name:'Fourierschütz', threshold:15},
+  {name:'Vize-Korporal', threshold:30},
+  {name:'Korporal', threshold:65},
+  {name:'Vize-Feldwebel', threshold:90},
+];
+const MEDAL_LADDER = [
+  {name:'Recruitment Medal, Bronze', threshold:40},
+  {name:'Recruitment Medal, Silver', threshold:80},
+  {name:'Recruitment Medal, Gold', threshold:120},
+];
+function rcLadderIndex(rankName){
+  if(!rankName) return -1;
+  return RC_RANK_LADDER.findIndex(r=>r.name.toLowerCase()===rankName.trim().toLowerCase());
+}
+function rcEligibleIndex(points){
+  let idx = 0;
+  RC_RANK_LADDER.forEach((r,i)=>{ if(points >= r.threshold) idx = i; });
+  return idx;
+}
+function highestEligibleMedal(points){
+  let m = null;
+  MEDAL_LADDER.forEach(x=>{ if(points >= x.threshold) m = x; });
+  return m;
+}
+
+let RECRUITMENT_ROSTER, RECRUITMENT_INDEX;
+
+/* ============ DEPOT DATA ============ */
+let DEPOT; // populated at runtime by loadAllData()
+const DEPOT_ORDER = ["Landwehři 1. Mušketýrské Čety \"Přeštice\"", "Landwehři 2. Mušketýrské Čety \"Stříbro\"", "Landwehři 3. Mušketýrské Čety \"Rokycany\""];
+
+
+function buildRecruitmentIndexes(){
+  RECRUITMENT_ROSTER = [...RECRUITMENT.recruiters, ...RECRUITMENT.staff];
+  RECRUITMENT_INDEX = new Map(RECRUITMENT_ROSTER.map(r=>[r.name, r]));
+RECRUITMENT_ROSTER.forEach(r=>{
+  if(MEMBER_INDEX.has(r.name)) return;
+  const companyName = r.company.trim();
+  const companyId = COMPANY_FULLNAME_TO_ID[companyName];
+  let synthCompany;
+  if(companyId){
+    synthCompany = COMPANIES.find(c=>c.id===companyId);
+  } else {
+    synthCompany = { id:'other', label: companyName || 'OTHER UNIT', gloss:'Recruitment Dept.', full_name: companyName || 'Legion Erzherzog Karl', city:'', filter:'all' };
+  }
+  MEMBER_INDEX.set(r.name, {
+    member: { rank:r.rank, position:'', name:r.name, kills:0, deaths:0, kdr:0, kpe:0, activity:0, events:0, is_staff:false, days:[false,false,false,false,false,false], active_this_week:false, rcPoints:r.totalPoints },
+    company: synthCompany,
+    platoon: 'Recruitment Department',
+  });
+});
+}
+function nameLink(name){
+  return `<span class="name-link" data-name="${name}">${name}</span>`;
+}
+document.addEventListener('click', (e)=>{
+  const el = e.target.closest('.name-link');
+  if(el) showProfile(el.dataset.name);
+});
+
+/* ============ NAV / TABS ============ */
+function buildTabs(){
+  return [
+  {id:'individual', label:'Individual', theme:''},
+  {id:'profile', label:'Profile', theme:''},
+  {id:'command', label:'High Command', theme:''},
+  ...COMPANIES.map(c=>({id:c.id, label:c.label, theme:THEME_BY_ID[c.id]||''})),
+  {id:'depot', label:'Depot', theme:''},
+  {id:'recruitment', label:'Recruitment', theme:''},
+  {id:'recommendations', label:'Recommendations', theme:''},
+  {id:'results', label:'Results', theme:''}
+  ];
+}
+const ACCENT_HEX = {
+  'theme-musketeers':'#8B5A2B',
+  'theme-strelci':'#B9932A',
+  'theme-legion':'#5A4E74',
+  '':'#C9A227'
+};
+
+function buildNav(){
+  const TABS = buildTabs();
+const nav = document.getElementById('nav');
+TABS.forEach((t,i)=>{
+  const btn = document.createElement('button');
+  btn.textContent = t.label;
+  btn.dataset.tab = t.id;
+  btn.style.setProperty('--tab-accent', ACCENT_HEX[t.theme] || '#C9A227');
+  if(i===0) btn.classList.add('active');
+  btn.addEventListener('click', ()=>showTab(t.id));
+  nav.appendChild(btn);
+});
+}
+
+function showTab(id){
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active', b.dataset.tab===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id==='panel-'+id));
+}
+
+/* ============ RENDER: INDIVIDUAL ============ */
+function renderIndividualPanel(){
+  const rows = flattenVisible();
+  const totalKills = rows.reduce((s,m)=>s+m.kills,0);
+  const totalDeaths = rows.reduce((s,m)=>s+m.deaths,0);
+  const staffCount = rows.filter(m=>m.is_staff).length;
+
+  const panel = document.createElement('div');
+  panel.className = 'panel active';
+  panel.id = 'panel-individual';
+  panel.innerHTML = `
+    <div class="panel-header">
+      <div class="titles"><h2>Individual Record</h2></div>
+      <div class="meta">${rows.length} listed · across all companies</div>
+    </div>
+    <div class="stat-strip">
+      <div class="stat-cell kills"><span class="num">${totalKills}</span><span class="lbl">Kills Dealt</span></div>
+      <div class="stat-cell deaths"><span class="num">${totalDeaths}</span><span class="lbl">Fallen</span></div>
+      <div class="stat-cell"><span class="num">${rows.length}</span><span class="lbl">Listed Personnel</span></div>
+      <div class="stat-cell"><span class="num">${staffCount}</span><span class="lbl">Command Roles</span></div>
+    </div>
+    <div class="ledger-wrap">
+      <table class="ledger" id="individual-table">
+        <thead>
+          <tr>
+            <th data-key="rankpos">#</th>
+            <th data-key="name">Name</th>
+            <th data-key="company">Company</th>
+            <th data-key="kills" class="num sorted">K</th>
+            <th data-key="deaths" class="num">D</th>
+            <th data-key="kdr" class="num">KDR</th>
+            <th data-key="kpe" class="num">KPE</th>
+            <th data-key="events" class="num">Events</th>
+            <th data-key="activity" class="num">Activity</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  `;
+  document.getElementById('main').appendChild(panel);
+
+  let sortKey='kills', sortDir=-1;
+  function draw(){
+    const sorted = [...rows].sort((a,b)=>{
+      if(sortKey==='name'||sortKey==='company') return sortDir==1 ? a[sortKey].localeCompare(b[sortKey]) : b[sortKey].localeCompare(a[sortKey]);
+      return sortDir==1 ? a[sortKey]-b[sortKey] : b[sortKey]-a[sortKey];
+    });
+    const tbody = panel.querySelector('tbody');
+    tbody.innerHTML = sorted.map((m,i)=>`
+      <tr>
+        <td class="rank-badge">${i+1}</td>
+        <td class="name-cell">${nameLink(m.name)}<br><span class="pos-tag ${m.is_staff?'staff-tag':''}">${m.rank||'—'}</span></td>
+        <td>${m.company}</td>
+        <td class="num">${m.kills}</td>
+        <td class="num">${m.deaths}</td>
+        <td class="num ${kdrClass(m.kdr)}">${m.kdr.toFixed(2)}</td>
+        <td class="num">${m.kpe}</td>
+        <td class="num">${m.events}</td>
+        <td class="num">${fmtPct(m.activity)}</td>
+      </tr>
+    `).join('');
+  }
+  panel.querySelectorAll('thead th[data-key]').forEach(th=>{
+    th.addEventListener('click', ()=>{
+      const key = th.dataset.key;
+      if(key==='rankpos') return;
+      if(sortKey===key){ sortDir *= -1; } else { sortKey=key; sortDir = (key==='name'||key==='company') ? 1 : -1; }
+      panel.querySelectorAll('thead th').forEach(x=>x.classList.remove('sorted'));
+      th.classList.add('sorted');
+      draw();
+    });
+  });
+  draw();
+}
+
+/* ============ RENDER: COMPANY PANEL ============ */
+function renderCompanyPanel(company){
+  const theme = THEME_BY_ID[company.id] || '';
+  const visiblePlatoons = company.platoons.map(p => ({name:p.name, members: visibleMembers(p.members, company)}));
+  const allVisible = visiblePlatoons.flatMap(p=>p.members);
+  const totalKills = allVisible.reduce((s,m)=>s+m.kills,0);
+  const totalDeaths = allVisible.reduce((s,m)=>s+m.deaths,0);
+
+  const panel = document.createElement('div');
+  panel.className = 'panel ' + theme;
+  panel.id = 'panel-'+company.id;
+  panel.innerHTML = `
+    <div class="panel-header">
+      <div class="titles">
+        <div class="crest-slot">${company.label[0]}</div>
+        <div>
+          <h2>${company.label}</h2>
+          <span class="gloss">${company.gloss} · ${company.city}</span>
+        </div>
+      </div>
+      <div class="meta">${company.full_name} · ${allVisible.length} listed</div>
+    </div>
+    <div class="stat-strip">
+      <div class="stat-cell kills"><span class="num">${totalKills}</span><span class="lbl">Kills Dealt</span></div>
+      <div class="stat-cell deaths"><span class="num">${totalDeaths}</span><span class="lbl">Fallen</span></div>
+      <div class="stat-cell accent"><span class="num">${visiblePlatoons.length}</span><span class="lbl">Platoons</span></div>
+      <div class="stat-cell accent"><span class="num">${allVisible.length}</span><span class="lbl">Listed</span></div>
+    </div>
+    <div id="platoons-${company.id}"></div>
+  `;
+  document.getElementById('main').appendChild(panel);
+
+  const container = panel.querySelector('#platoons-'+company.id);
+  visiblePlatoons.forEach(p=>{
+    const block = document.createElement('div');
+    block.className = 'platoon-block';
+    /* members arrive pre-ordered: command role (PCO/CCO > PXO/CXO > NCO), then by kills */
+    block.innerHTML = `
+      <h3 class="platoon-title">${p.name}</h3>
+      <div class="ledger-wrap">
+        <table class="ledger">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Name</th>
+              <th>Role</th>
+              <th class="num">K</th>
+              <th class="num">D</th>
+              <th class="num">KDR</th>
+              <th class="num">KPE</th>
+              <th class="num">Events</th>
+              <th class="num">Activity</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${p.members.map(m=>`
+              <tr>
+                <td>${m.rank||'—'}</td>
+                <td class="name-cell">${nameLink(m.name)}</td>
+                <td><span class="pos-tag ${m.is_staff?'staff-tag':''}">${m.position||'—'}</span></td>
+                <td class="num">${m.kills}</td>
+                <td class="num">${m.deaths}</td>
+                <td class="num ${kdrClass(m.kdr)}">${m.kdr.toFixed(2)}</td>
+                <td class="num">${m.kpe}</td>
+                <td class="num">${m.events}</td>
+                <td class="num">${fmtPct(m.activity)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+    container.appendChild(block);
+  });
+}
+
+/* ============ RESULTS (sample data — real sheet not wired yet) ============ */
+const LINE_THEME_COLOR = {
+  legion:'#5A4E74',
+  musketeers:'#8B5A2B',
+  strelci:'#B9932A',
+};
+
+/* Historical Napoleonic-era flags, drawn as simple SVGs (stripe colors true to period) */
+const FLAGS = {
+  "Austria": `<svg viewBox="0 0 3 2"><rect width="3" height="1" fill="#1a1a1a"/><rect y="1" width="3" height="1" fill="#F4C430"/></svg>`,
+  "France": `<svg viewBox="0 0 3 2"><rect width="1" height="2" fill="#00267F"/><rect x="1" width="1" height="2" fill="#FFFFFF"/><rect x="2" width="1" height="2" fill="#D62828"/></svg>`,
+  "Russia": `<svg viewBox="0 0 3 2"><rect width="3" height="0.66" fill="#1a1a1a"/><rect y="0.66" width="3" height="0.68" fill="#F4C430"/><rect y="1.34" width="3" height="0.66" fill="#FFFFFF"/></svg>`,
+  "Prussia": `<svg viewBox="0 0 3 2"><rect width="3" height="1" fill="#1a1a1a"/><rect y="1" width="3" height="1" fill="#FFFFFF"/></svg>`,
+  "Britain": `<svg viewBox="0 0 3 2"><rect width="3" height="2" fill="#00247D"/><line x1="0" y1="0" x2="3" y2="2" stroke="#FFFFFF" stroke-width="0.5"/><line x1="0" y1="2" x2="3" y2="0" stroke="#FFFFFF" stroke-width="0.5"/><line x1="0" y1="0" x2="3" y2="2" stroke="#CF142B" stroke-width="0.2"/><line x1="0" y1="2" x2="3" y2="0" stroke="#CF142B" stroke-width="0.2"/><rect x="0" y="0.85" width="3" height="0.3" fill="#FFFFFF"/><rect x="1.35" width="0.3" height="2" fill="#FFFFFF"/><rect x="0" y="0.93" width="3" height="0.14" fill="#CF142B"/><rect x="1.43" width="0.14" height="2" fill="#CF142B"/></svg>`,
+  "Bavaria": `<svg viewBox="0 0 3 2"><rect width="3" height="2" fill="#FFFFFF"/><rect width="3" height="0.5" fill="#0072CE"/><rect y="1" width="3" height="0.5" fill="#0072CE"/></svg>`,
+  "Spain": `<svg viewBox="0 0 3 2"><rect width="3" height="2" fill="#AA151B"/><rect y="0.5" width="3" height="1" fill="#F1BF00"/></svg>`,
+  "Netherlands": `<svg viewBox="0 0 3 2"><rect width="3" height="0.66" fill="#AE1C28"/><rect y="0.66" width="3" height="0.68" fill="#FFFFFF"/><rect y="1.34" width="3" height="0.66" fill="#21468B"/></svg>`,
+  "Poland": `<svg viewBox="0 0 3 2"><rect width="3" height="1" fill="#FFFFFF"/><rect y="1" width="3" height="1" fill="#DC143C"/></svg>`,
+  "Portugal": `<svg viewBox="0 0 3 2"><rect width="3" height="2" fill="#046A38"/><rect x="1.1" width="1.9" height="2" fill="#D40000"/></svg>`,
+  "Denmark": `<svg viewBox="0 0 3 2"><rect width="3" height="2" fill="#C60C30"/><rect x="1.1" width="0.3" height="2" fill="#FFFFFF"/><rect y="0.85" width="3" height="0.3" fill="#FFFFFF"/></svg>`,
+  "Sweden": `<svg viewBox="0 0 3 2"><rect width="3" height="2" fill="#006AA7"/><rect x="1.1" width="0.3" height="2" fill="#FECC02"/><rect y="0.85" width="3" height="0.3" fill="#FECC02"/></svg>`,
+  "Naples": `<svg viewBox="0 0 3 2"><rect width="3" height="2" fill="#FFFFFF"/><circle cx="1.5" cy="1" r="0.5" fill="#D40000"/></svg>`,
+  "Ottoman": `<svg viewBox="0 0 3 2"><rect width="3" height="2" fill="#D40000"/><circle cx="1.2" cy="1" r="0.42" fill="#FFFFFF"/><circle cx="1.32" cy="1" r="0.34" fill="#D40000"/></svg>`,
+};
+function flagSVG(country){
+  return FLAGS[country] || `<svg viewBox="0 0 3 2"><rect width="3" height="2" fill="#8a8a8a"/></svg>`;
+}
+
+/* Draws a small 5-point star polygon centered at (cx,cy) with given outer radius */
+function starGlyphPoints(cx, cy, rOuter, rotationOffset){
+  const rInner = rOuter * 0.42;
+  const pts = [];
+  for(let i=0;i<10;i++){
+    const r = i%2===0 ? rOuter : rInner;
+    const a = rotationOffset + i*Math.PI/5;
+    pts.push(`${(cx+r*Math.cos(a)).toFixed(2)},${(cy+r*Math.sin(a)).toFixed(2)}`);
+  }
+  return pts.join(' ');
+}
+/* Arranges N tiny stars at the vertices of a regular N-gon (square for 4, pentagon for 5, etc.)
+   instead of a row, so the whole rating sits in one compact cluster. */
+function starCluster(count){
+  const n = Math.max(0, Math.min(8, count));
+  const size = 32, cx = size/2, cy = size/2;
+  let glyphs = '';
+  if(n <= 0){
+    glyphs = '';
+  } else if(n === 1){
+    glyphs = `<polygon points="${starGlyphPoints(cx,cy,size*0.24,-Math.PI/2)}" fill="currentColor"/>`;
+  } else {
+    const r = size*0.34;
+    for(let i=0;i<n;i++){
+      const angle = -Math.PI/2 + i*(2*Math.PI/n);
+      const px = cx + r*Math.cos(angle);
+      const py = cy + r*Math.sin(angle);
+      glyphs += `<polygon points="${starGlyphPoints(px,py,size*0.135,-Math.PI/2)}" fill="currentColor"/>`;
+    }
+  }
+  return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">${glyphs}</svg>`;
+}
+
+const BATTLES = [
+  {
+    name: "Action at Kolín Heights",
+    date: "12 July 2026",
+    home: "Austria", away: "France",
+    homeCorps: "Zweite Korps", awayCorps: "Troisième Corps",
+    matchups: [
+      {ourLine:"LEK. Legionáři", theme:"legion", ourPoints:245, ourStars:6, ourMen:20, theirLine:"54e Dépôt", theirPoints:210, theirStars:4, theirMen:20},
+      {ourLine:"LEK. Fusiliers", theme:"musketeers", ourPoints:198, ourStars:5, ourMen:20, theirLine:"54e Voltigeurs", theirPoints:221, theirStars:6, theirMen:20},
+      {ourLine:"LEK. Jägers", theme:"strelci", ourPoints:267, ourStars:7, ourMen:20, theirLine:"54e Grenadiers", theirPoints:233, theirStars:5, theirMen:20},
+    ],
+  }
+];
+
+function renderBattleCard(battle){
+  const diffs = battle.matchups.map(m => m.ourPoints - m.theirPoints);
+  const serverDiff = diffs.reduce((a,b)=>a+b,0);
+  const won = serverDiff >= 0;
+
+  const card = document.createElement('div');
+  card.className = 'battle-card';
+  card.innerHTML = `
+    <div class="battle-head">
+      <div class="battle-name">${battle.name}</div>
+      <div class="corps-flags-row">
+        <span class="flag-box">${flagSVG(battle.home)}</span>
+        <span class="corps-big">${battle.homeCorps}<span class="vs-mini">vs</span>${battle.awayCorps}</span>
+        <span class="flag-box">${flagSVG(battle.away)}</span>
+      </div>
+      <div class="battle-date">${battle.date}</div>
+    </div>
+    <div class="result-summary">
+      <div class="outcome-text ${won?'win':'loss'}">${won ? 'Victory' : 'Defeat'}</div>
+      <span class="diff-num ${serverDiff>=0?'diff-pos':'diff-neg'}">${serverDiff>=0?'+':''}${serverDiff} pts</span>
+    </div>
+    <div class="matchups-wrap">
+      ${battle.matchups.map((m,i)=>{
+        const d = diffs[i];
+        const ourClass = d>0 ? 'diff-pos' : d<0 ? 'diff-neg' : 'diff-tie';
+        const theirClass = d<0 ? 'diff-pos' : d>0 ? 'diff-neg' : 'diff-tie';
+        const color = LINE_THEME_COLOR[m.theme] || '#B08A2E';
+        return `
+          <div class="matchup-row">
+            <div class="m-our">
+              <div class="m-nameblock">
+                <div class="m-name"><span class="line-chip" style="background:${color};"></span>${m.ourLine}</div>
+                <div class="m-men">${m.ourMen} men</div>
+              </div>
+              <div class="m-starcluster">${starCluster(m.ourStars)}<span class="star-count">${m.ourStars}</span></div>
+              <div class="m-points ${ourClass}">${m.ourPoints}</div>
+            </div>
+            <div class="m-divider">vs</div>
+            <div class="m-their">
+              <div class="m-points ${theirClass}">${m.theirPoints}</div>
+              <div class="m-starcluster">${starCluster(m.theirStars)}<span class="star-count">${m.theirStars}</span></div>
+              <div class="m-nameblock">
+                <div class="m-name">${m.theirLine}</div>
+                <div class="m-men">${m.theirMen} men</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+  return card;
+}
+
+/* ============ RENDER: PROFILE ============ */
+function renderProfilePanel(){
+  const panel = document.createElement('div');
+  panel.className = 'panel';
+  panel.id = 'panel-profile';
+  document.getElementById('main').appendChild(panel);
+  drawEmptyProfile();
+}
+
+function drawEmptyProfile(){
+  const panel = document.getElementById('panel-profile');
+  panel.className = panel.className.split(' ').filter(c=>!c.startsWith('theme-')).join(' ');
+  panel.innerHTML = `
+    <div class="panel-header"><h2>Service Record</h2></div>
+    <div class="profile-empty">
+      <span class="seal-mark-lg">No profile selected</span>
+      <p>Click any name across the Individual or Company tabs to open their service record — or search by name below.</p>
+      <input type="text" id="profile-search" list="profile-names" placeholder="Search a name…">
+      <datalist id="profile-names"></datalist>
+    </div>
+  `;
+  const datalist = panel.querySelector('#profile-names');
+  [...MEMBER_INDEX.keys()].sort().forEach(n=>{
+    const opt = document.createElement('option');
+    opt.value = n;
+    datalist.appendChild(opt);
+  });
+  const input = panel.querySelector('#profile-search');
+  input.addEventListener('change', ()=>{
+    if(MEMBER_INDEX.has(input.value)) showProfile(input.value);
+  });
+}
+
+function showProfile(name){
+  const entry = MEMBER_INDEX.get(name);
+  showTab('profile');
+  const panel = document.getElementById('panel-profile');
+  if(!entry){ drawEmptyProfile(); return; }
+  const {member:m, company, platoon} = entry;
+  const theme = THEME_BY_ID[company.id] || '';
+  panel.className = 'panel active ' + theme;
+
+  /* Rank this member against everyone else on record, stat by stat */
+  const allStats = [...MEMBER_INDEX.values()].map(e=>e.member);
+  const rankLabel = (value, pool) => {
+    const clean = pool.filter(v=>typeof v === 'number' && !isNaN(v));
+    const rank = clean.filter(v=>v>value).length + 1;
+    return `#${rank} of ${clean.length}`;
+  };
+  const rcEntry = RECRUITMENT_INDEX.get(m.name);
+  const rcPool = RECRUITMENT_ROSTER.map(r=>r.totalPoints);
+
+  const promo = promotionStatus(m, company.id);
+  let promoHtml;
+  if(!promo.onLadder){
+    promoHtml = `
+      <div class="promo-status na">
+        <span class="promo-badge">Appointed rank</span>
+        <span class="promo-text">${m.rank} sits outside the standard battle-count ladder — it's an appointed NCO/officer rank, not something to auto-promote on events attended.</span>
+      </div>
+    `;
+  } else if(promo.dueForPromotion){
+    promoHtml = `
+      <div class="promo-status due">
+        <span class="promo-badge">Promotion due</span>
+        <span class="promo-text">${m.events} battles attended qualifies <b>${m.name}</b> for <b>${promo.recommendedRank}</b> (currently ${m.rank}).</span>
+      </div>
+    `;
+  } else if(promo.nextRank){
+    const pct = promo.nextThreshold>0 ? Math.min(100, Math.round((m.events/promo.nextThreshold)*100)) : 100;
+    promoHtml = `
+      <div class="promo-status">
+        <span class="promo-badge">On track</span>
+        <span class="promo-text">Currently <b>${m.rank}</b>. ${
+          promo.nextAvailable
+            ? `Needs <b>${promo.battlesToNext}</b> more battle${promo.battlesToNext===1?'':'s'} for <b>${promo.nextRank}</b> (at ${promo.nextThreshold} battles).`
+            : `Next rank <b>${promo.nextRank}</b> is only available in a higher-tier company (Strelci/Legionáři).`
+        }</span>
+      </div>
+      <div class="progress-bar"><div class="progress-bar-fill" style="width:${pct}%;"></div></div>
+      <div class="progress-label">${m.events} / ${promo.nextThreshold} battles toward ${promo.nextRank}</div>
+    `;
+  } else {
+    promoHtml = `
+      <div class="promo-status due">
+        <span class="promo-badge">Top of ladder</span>
+        <span class="promo-text"><b>${m.name}</b> has reached the top of the standard promotion ladder.</span>
+      </div>
+    `;
+  }
+
+  panel.innerHTML = `
+    <div class="profile-card">
+      <div class="profile-head">
+        <button class="back-btn" id="profile-back">&larr; Back to search</button>
+        <div class="p-name">${m.name}</div>
+        <div class="p-rank">${m.rank}${m.is_staff ? ' · '+m.position : ''}</div>
+        <div class="p-unit">${company.label} (${company.gloss}) ${platoon && platoon !== company.full_name ? '· '+platoon : ''}</div>
+      </div>
+      <div class="profile-stats">
+        <div class="stat-cell kills"><span class="num">${m.kills}</span><span class="lbl">Kills</span><span class="rank-sub">${rankLabel(m.kills, allStats.map(x=>x.kills))}</span></div>
+        <div class="stat-cell deaths"><span class="num">${m.deaths}</span><span class="lbl">Deaths</span><span class="rank-sub">${rankLabel(m.deaths, allStats.map(x=>x.deaths))}</span></div>
+        <div class="stat-cell accent"><span class="num">${m.kdr.toFixed(2)}</span><span class="lbl">KDR</span><span class="rank-sub">${rankLabel(m.kdr, allStats.map(x=>x.kdr))}</span></div>
+        <div class="stat-cell accent"><span class="num">${m.kpe}</span><span class="lbl">KPE</span><span class="rank-sub">${rankLabel(m.kpe, allStats.map(x=>x.kpe))}</span></div>
+        <div class="stat-cell"><span class="num">${m.events}</span><span class="lbl">Events</span><span class="rank-sub">${rankLabel(m.events, allStats.map(x=>x.events))}</span></div>
+        <div class="stat-cell"><span class="num">${fmtPct(m.activity)}</span><span class="lbl">Activity</span><span class="rank-sub">${rankLabel(m.activity, allStats.map(x=>x.activity))}</span></div>
+        ${rcEntry ? `<div class="stat-cell accent"><span class="num">${rcEntry.totalPoints}</span><span class="lbl">RC Points</span><span class="rank-sub">${rankLabel(rcEntry.totalPoints, rcPool)}</span></div>` : ''}
+      </div>
+      <div class="promotion-block">
+        <h4>Promotion Status</h4>
+        ${promoHtml}
+      </div>
+    </div>
+  `;
+  panel.querySelector('#profile-back').addEventListener('click', drawEmptyProfile);
+}
+
+
+/* ============ RENDER: HIGH COMMAND ============ */
+const HC_ORDER = ["Regiment Staff","Musketeers Command","Strelci Command","Legionáři Command","Landwehr Command"];
+
+function renderCommandPanel(){
+  const panel = document.createElement('div');
+  panel.className = 'panel';
+  panel.id = 'panel-command';
+  panel.innerHTML = `<div class="panel-header"><h2>High Command</h2><div class="meta">Regiment &amp; company leadership</div></div>`;
+  document.getElementById('main').appendChild(panel);
+
+  HC_ORDER.forEach(section=>{
+    const members = HIGH_COMMAND[section];
+    if(!members) return;
+    const meta = HC_SECTION_META[section];
+    const block = document.createElement('div');
+    block.className = 'platoon-block ' + (meta.theme||'');
+    block.innerHTML = `
+      <h3 class="platoon-title">${section}</h3>
+      <div class="ledger-wrap">
+        <table class="ledger">
+          <thead>
+            <tr>
+              <th>Rank</th><th>Name</th><th>Role</th>
+              <th class="num">K</th><th class="num">D</th><th class="num">KDR</th>
+              <th class="num">KPE</th><th class="num">Events</th><th class="num">Activity</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${members.map(m=>`
+              <tr>
+                <td>${m.rank||'—'}</td>
+                <td class="name-cell">${nameLink(m.name)}</td>
+                <td><span class="pos-tag staff-tag">${m.position||'—'}</span></td>
+                <td class="num">${m.kills}</td>
+                <td class="num">${m.deaths}</td>
+                <td class="num ${kdrClass(m.kdr)}">${m.kdr.toFixed(2)}</td>
+                <td class="num">${m.kpe}</td>
+                <td class="num">${m.events}</td>
+                <td class="num">${fmtPct(m.activity)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+    panel.appendChild(block);
+  });
+}
+
+/* ============ RENDER: RECOMMENDATIONS ============ */
+function allRawMembers(){
+  const rows = [];
+  COMPANIES.forEach(c=>{
+    c.platoons.forEach(p=>{
+      p.members.forEach(m=>{
+        rows.push({...m, companyId:c.id, companyLabel:c.label, platoon:p.name});
+      });
+    });
+  });
+  return rows;
+}
+
+function miniLedger(headerCells, rowsHtml){
+  return `
+    <div class="ledger-wrap">
+      <table class="ledger">
+        <thead><tr>${headerCells.map(h=>`<th${h.num?' class="num"':''}>${h.label}</th>`).join('')}</tr></thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderRecommendationsPanel(){
+  const all = allRawMembers();
+
+  /* --- 1. Promotions due --- */
+  const promoRows = all
+    .map(m => ({m, promo: promotionStatus(m, m.companyId)}))
+    .filter(x => x.promo.onLadder && x.promo.dueForPromotion);
+
+  const promoHtml = promoRows.length ? miniLedger(
+    [{label:'Name'},{label:'Company'},{label:'Current Rank'},{label:'Recommended'},{label:'Events',num:true}],
+    promoRows.map(({m,promo})=>`
+      <tr>
+        <td class="name-cell">${nameLink(m.name)}</td>
+        <td>${m.companyLabel}</td>
+        <td>${m.rank}</td>
+        <td class="kdr-good">${promo.recommendedRank}</td>
+        <td class="num">${m.events}</td>
+      </tr>
+    `).join('')
+  ) : `<div class="placeholder"><p>Nobody is currently overdue for promotion.</p></div>`;
+
+  /* --- 2. Draft recommendations --- */
+  const draftToStrelci = all.filter(m => m.companyId==='musketyri' && m.kpe >= 40);
+  const draftToLegion  = all.filter(m => m.companyId==='strelci' && m.kpe >= 50);
+  const draftRows = [
+    ...draftToStrelci.map(m=>({...m, target:'STŘELCI'})),
+    ...draftToLegion.map(m=>({...m, target:'LEGIONÁŘI'})),
+  ].sort((a,b)=>b.kpe-a.kpe);
+
+  const draftHtml = draftRows.length ? miniLedger(
+    [{label:'Name'},{label:'Current Company'},{label:'KPE',num:true},{label:'Recommended Draft'}],
+    draftRows.map(m=>`
+      <tr>
+        <td class="name-cell">${nameLink(m.name)}</td>
+        <td>${m.companyLabel}</td>
+        <td class="num kdr-good">${m.kpe}</td>
+        <td>${m.target}</td>
+      </tr>
+    `).join('')
+  ) : `<div class="placeholder"><p>No one currently clears the KPE bar for a draft (Strelci 40+, Legionáři 50+).</p></div>`;
+
+  /* --- 3. Sapper recommendations: top 3 KPE per company --- */
+  const sapperHtml = COMPANIES.map(c=>{
+    const top3 = all.filter(m=>m.companyId===c.id && m.kpe>0).sort((a,b)=>b.kpe-a.kpe).slice(0,3);
+    return `
+      <div class="platoon-block ${THEME_BY_ID[c.id]||''}">
+        <h3 class="platoon-title">${c.label}</h3>
+        ${top3.length ? miniLedger(
+          [{label:'Name'},{label:'KPE',num:true}],
+          top3.map(m=>`<tr><td class="name-cell">${nameLink(m.name)}</td><td class="num">${m.kpe}</td></tr>`).join('')
+        ) : `<div class="placeholder"><p>No KPE data yet for this company.</p></div>`}
+      </div>
+    `;
+  }).join('');
+
+  /* --- 4. Drummer recommendations: most events per company --- */
+  const drummerRows = COMPANIES.map(c=>{
+    const pool = all.filter(m=>m.companyId===c.id);
+    if(!pool.length) return null;
+    const top = pool.reduce((a,b)=> b.events > a.events ? b : a);
+    return {c, top};
+  }).filter(Boolean);
+
+  const drummerHtml = miniLedger(
+    [{label:'Company'},{label:'Name'},{label:'Total Events',num:true}],
+    drummerRows.map(({c,top})=>`
+      <tr>
+        <td>${c.label}</td>
+        <td class="name-cell">${nameLink(top.name)}</td>
+        <td class="num">${top.events}</td>
+      </tr>
+    `).join('')
+  );
+
+  /* --- 5. Recruitment promotions due (RC points, separate ladder) --- */
+  const rcPromoRows = RECRUITMENT_ROSTER
+    .map(r => {
+      const curIdx = rcLadderIndex(r.rank);
+      if(curIdx === -1) return null;
+      const eligIdx = rcEligibleIndex(r.totalPoints);
+      if(eligIdx <= curIdx) return null;
+      return {r, recommended: RC_RANK_LADDER[eligIdx].name};
+    })
+    .filter(Boolean)
+    .sort((a,b)=>b.r.totalPoints-a.r.totalPoints);
+
+  const rcPromoHtml = rcPromoRows.length ? miniLedger(
+    [{label:'Name'},{label:'Company'},{label:'Current Rank'},{label:'Recommended'},{label:'RC Points',num:true}],
+    rcPromoRows.map(({r,recommended})=>`
+      <tr>
+        <td class="name-cell">${nameLink(r.name)}</td>
+        <td>${r.company||'—'}</td>
+        <td>${r.rank}</td>
+        <td class="kdr-good">${recommended}</td>
+        <td class="num">${r.totalPoints}</td>
+      </tr>
+    `).join('')
+  ) : `<div class="placeholder"><p>Nobody has enough RC points for a recruitment promotion right now.</p></div>`;
+
+  /* --- 6. Recruitment medals earned --- */
+  const medalRows = RECRUITMENT_ROSTER
+    .map(r => ({r, medal: highestEligibleMedal(r.totalPoints)}))
+    .filter(x => x.medal)
+    .sort((a,b)=>b.r.totalPoints-a.r.totalPoints);
+
+  const medalHtml = medalRows.length ? miniLedger(
+    [{label:'Name'},{label:'Company'},{label:'Medal'},{label:'RC Points',num:true}],
+    medalRows.map(({r,medal})=>`
+      <tr>
+        <td class="name-cell">${nameLink(r.name)}</td>
+        <td>${r.company||'—'}</td>
+        <td class="kdr-good">${medal.name}</td>
+        <td class="num">${r.totalPoints}</td>
+      </tr>
+    `).join('')
+  ) : `<div class="placeholder"><p>Nobody has cleared the 40 RC point bar for a medal yet.</p></div>`;
+
+  const panel = document.createElement('div');
+  panel.className = 'panel';
+  panel.id = 'panel-recommendations';
+  panel.innerHTML = `
+    <div class="panel-header"><h2>Recommendations</h2><div class="meta">Auto-generated from current roster data</div></div>
+
+    <div class="platoon-block">
+      <h3 class="platoon-title">Promotions Due</h3>
+      ${promoHtml}
+    </div>
+
+    <div class="platoon-block">
+      <h3 class="platoon-title">Recruitment Promotions Due <span style="font-weight:400;text-transform:none;letter-spacing:0;">— RC points ladder</span></h3>
+      ${rcPromoHtml}
+    </div>
+
+    <div class="platoon-block">
+      <h3 class="platoon-title">Recruitment Medals <span style="font-weight:400;text-transform:none;letter-spacing:0;">— Bronze 40 / Silver 80 / Gold 120 RC</span></h3>
+      ${medalHtml}
+    </div>
+
+    <div class="platoon-block">
+      <h3 class="platoon-title">Draft Recommendations</h3>
+      ${draftHtml}
+    </div>
+
+    <div class="platoon-block">
+      <h3 class="platoon-title">Sapper Recommendations <span style="font-weight:400;text-transform:none;letter-spacing:0;">— top 3 KPE per company</span></h3>
+      ${sapperHtml}
+    </div>
+
+    <div class="platoon-block">
+      <h3 class="platoon-title">Drummer Recommendations <span style="font-weight:400;text-transform:none;letter-spacing:0;">— most events per company</span></h3>
+      ${drummerHtml}
+    </div>
+  `;
+  document.getElementById('main').appendChild(panel);
+}
+
+/* ============ RENDER: RECRUITMENT ============ */
+function renderRecruitmentPanel(){
+  const panel = document.createElement('div');
+  panel.className = 'panel';
+  panel.id = 'panel-recruitment';
+
+  const sortedRoster = [...RECRUITMENT_ROSTER].sort((a,b)=>b.totalPoints-a.totalPoints);
+  const sortedSessions = [...RECRUITMENT.sessions].sort((a,b)=>b.totalSessions-a.totalSessions);
+  const DAY_LABELS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+  panel.innerHTML = `
+    <div class="panel-header"><h2>Recruitment</h2><div class="meta">Recruitment Department</div></div>
+    <div class="stat-strip">
+      <div class="stat-cell accent"><span class="num">${RECRUITMENT.totalRecruits}</span><span class="lbl">Total Recruits</span></div>
+      <div class="stat-cell accent"><span class="num">${RECRUITMENT.totalRobux}</span><span class="lbl">Total ROBUX</span></div>
+      <div class="stat-cell accent"><span class="num">${RECRUITMENT.totalSessionsHosted}</span><span class="lbl">Sessions Hosted</span></div>
+      <div class="stat-cell"><span class="num">${RECRUITMENT.dailyGoal}</span><span class="lbl">Daily Goal</span></div>
+    </div>
+
+    <div class="platoon-block">
+      <h3 class="platoon-title">Recruiters &amp; Staff — RC Points</h3>
+      <div class="ledger-wrap">
+        <table class="ledger">
+          <thead>
+            <tr>
+              <th>Rank</th><th>Name</th><th>Company</th>
+              <th class="num">RC Points</th><th class="num">ROBUX</th>
+              ${DAY_LABELS.map(d=>`<th class="num">${d}</th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>
+            ${sortedRoster.map(r=>`
+              <tr>
+                <td>${r.rank||'—'}</td>
+                <td class="name-cell">${nameLink(r.name)}</td>
+                <td>${r.company||'—'}</td>
+                <td class="num kdr-good">${r.totalPoints}</td>
+                <td class="num">${r.robux}</td>
+                ${r.days.map(d=>`<td class="num">${d||''}</td>`).join('')}
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="platoon-block">
+      <h3 class="platoon-title">Sessions Hosted</h3>
+      <div class="ledger-wrap">
+        <table class="ledger">
+          <thead>
+            <tr>
+              <th>Rank</th><th>Name</th><th>Role</th>
+              <th class="num">Total</th>
+              ${DAY_LABELS.map(d=>`<th class="num">${d}</th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>
+            ${sortedSessions.map(s=>`
+              <tr>
+                <td>${s.rank||'—'}</td>
+                <td class="name-cell">${nameLink(s.name)}</td>
+                <td><span class="pos-tag staff-tag">${s.position||'—'}</span></td>
+                <td class="num kdr-good">${s.totalSessions}</td>
+                ${s.days.map(d=>`<td class="num">${d||''}</td>`).join('')}
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="platoon-block">
+      <h3 class="platoon-title">RC Requirements Reference</h3>
+      <div class="ledger-wrap">
+        <table class="ledger">
+          <thead><tr><th>Rank</th><th class="num">RC Points</th></tr></thead>
+          <tbody>
+            ${RC_RANK_LADDER.filter(r=>r.threshold>0).map(r=>`<tr><td>${r.name}</td><td class="num">${r.threshold}</td></tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+      <div class="ledger-wrap">
+        <table class="ledger">
+          <thead><tr><th>Medal</th><th class="num">RC Points</th></tr></thead>
+          <tbody>
+            ${MEDAL_LADDER.map(m=>`<tr><td>${m.name}</td><td class="num">${m.threshold}</td></tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  document.getElementById('main').appendChild(panel);
+}
+
+/* ============ RENDER: DEPOT ============ */
+function renderDepotPanel(){
+  const panel = document.createElement('div');
+  panel.className = 'panel';
+  panel.id = 'panel-depot';
+
+  const allRecruits = DEPOT_ORDER.flatMap(sec => DEPOT[sec] || []);
+  const returnedCount = allRecruits.filter(r=>r.returned).length;
+  const dmdCount = allRecruits.filter(r=>r.dmd).length;
+
+  panel.innerHTML = `
+    <div class="panel-header"><h2>Depot</h2><div class="meta">New recruit intake &amp; follow-up</div></div>
+    <div class="stat-strip">
+      <div class="stat-cell accent"><span class="num">${allRecruits.length}</span><span class="lbl">Recruits Listed</span></div>
+      <div class="stat-cell kills"><span class="num">${returnedCount}</span><span class="lbl">Returned</span></div>
+      <div class="stat-cell deaths"><span class="num">${allRecruits.length - returnedCount}</span><span class="lbl">Not Returned</span></div>
+      <div class="stat-cell"><span class="num">${dmdCount}</span><span class="lbl">DM'd</span></div>
+    </div>
+    <div id="depot-sections"></div>
+  `;
+  document.getElementById('main').appendChild(panel);
+
+  const container = panel.querySelector('#depot-sections');
+  DEPOT_ORDER.forEach(section=>{
+    const recruits = DEPOT[section];
+    if(!recruits) return;
+    const block = document.createElement('div');
+    block.className = 'platoon-block';
+    block.innerHTML = `
+      <h3 class="platoon-title">${section}</h3>
+      <div class="ledger-wrap">
+        <table class="ledger">
+          <thead>
+            <tr>
+              <th>Rank</th><th>Name</th><th>Join Date</th>
+              <th class="num">K</th><th class="num">D</th><th class="num">KDR</th>
+              <th class="num">KPE</th><th class="num">Activity</th>
+              <th class="num">Events</th><th>Returned</th><th>DM'd</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${recruits.map(r=>`
+              <tr>
+                <td>${r.rank||'—'}</td>
+                <td class="name-cell">${r.name}</td>
+                <td>${r.joinDate||'—'}</td>
+                <td class="num">${r.kills}</td>
+                <td class="num">${r.deaths}</td>
+                <td class="num ${kdrClass(r.kdr)}">${r.kdr.toFixed(2)}</td>
+                <td class="num">${r.kpe}</td>
+                <td class="num">${fmtPct(r.activity)}</td>
+                <td class="num">${r.daysAttended}</td>
+                <td>${r.returned ? '<span class="pos-tag staff-tag">Yes</span>' : '<span class="pos-tag">No</span>'}</td>
+                <td>${r.dmd ? '<span class="pos-tag staff-tag">Yes</span>' : '<span class="pos-tag">No</span>'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+    container.appendChild(block);
+  });
+}
+
+function renderResultsPanel(){
+  const panel = document.createElement('div');
+  panel.className = 'panel';
+  panel.id = 'panel-results';
+  panel.innerHTML = `
+    <div class="panel-header"><h2>Battle Results</h2></div>
+  `;
+  const sampleTag = document.createElement('div');
+  sampleTag.className = 'sample-tag';
+  sampleTag.textContent = 'Sample data — layout preview only, real results sheet not connected yet';
+  panel.appendChild(sampleTag);
+  BATTLES.forEach(b => panel.appendChild(renderBattleCard(b)));
+  document.getElementById('main').appendChild(panel);
+}
+
+/* ============ BOOTSTRAP ============ */
+async function boot(){
+  try{
+    const data = await loadAllData(SHEET_URLS);
+    COMPANIES = data.companies;
+    HIGH_COMMAND = data.highCommand;
+    RECRUITMENT = data.recruitment;
+    DEPOT = data.depot;
+  } catch(err){
+    console.error('Failed to load live data, falling back to empty state:', err);
+    COMPANIES = []; HIGH_COMMAND = {}; RECRUITMENT = {dailyGoal:0,totalRecruits:0,totalRobux:0,totalSessionsHosted:0,recruiters:[],staff:[],sessions:[]}; DEPOT = {};
+    document.getElementById('load-error').style.display = 'block';
+  }
+  buildMemberIndex();
+  buildRecruitmentIndexes();
+  buildNav();
+
+  renderIndividualPanel();
+  renderProfilePanel();
+  renderCommandPanel();
+  COMPANIES.forEach(renderCompanyPanel);
+  renderDepotPanel();
+  renderRecruitmentPanel();
+  renderRecommendationsPanel();
+  renderResultsPanel();
+
+  document.getElementById('dateline').textContent = new Date().toLocaleDateString('en-GB', {day:'2-digit', month:'long', year:'numeric'});
+  document.getElementById('loading-screen').style.display = 'none';
+}
+boot();
+</script>
+</body>
+</html>
